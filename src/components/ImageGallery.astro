@@ -1,0 +1,32 @@
+---
+import fs from "fs";
+import path from "path";
+
+const imageDir = path.resolve("./public/images");
+
+const imageFiles = fs
+  .readdirSync(imageDir)
+  .filter((file) => /\.(jpg|jpeg|png|gif)$/i.test(file));
+---
+
+<div>
+  <h1 class="text-3xl font-mono">Galería de imágenes</h1>
+  <div>
+    {
+      imageFiles.length > 0 ? (
+        imageFiles.map((image) => (
+          <div class="items-center justify-center grid m-3 pb-3">
+            <img
+              class="hover:animate-bounce w-[400px] h-auto self-center"
+              src={`/images/${image}`}
+              alt={image}
+            />
+            <h1>{image.split(/\.(jpg|jpeg|png|gif)/)[0]}</h1>
+          </div>
+        ))
+      ) : (
+        <div class="text-center text-2xl font-bold m-5">No hay imágenes</div>
+      )
+    }
+  </div>
+</div>
